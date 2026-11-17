@@ -8,7 +8,7 @@ Shared workspace for the Kija x Kyn work: Ky's story artifacts, Kyle's pitch too
 - `pitch-tools/` - Kyle's pitch builders for Studio Intelligence, the Kyn app, and Nutrichef.
 - `decks/` - pitch decks and snapshots meant to be shared or presented.
 - `assets/` - logos, photos, brand files, and other source material.
-- `docs/` - shared working docs and production rules.
+- `docs/` - shared working docs and the snapshot production rules.
 
 ## Working rules
 

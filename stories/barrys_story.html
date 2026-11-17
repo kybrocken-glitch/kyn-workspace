@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Barry’s × Kyn</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;background:#000;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",sans-serif;overflow:hidden;-webkit-tap-highlight-color:transparent}
+#story{position:relative;width:100%;height:100dvh;max-width:480px;margin:0 auto;background:#111;overflow:hidden;touch-action:manipulation}
+.slide{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .18s ease;background-size:cover;background-position:center}
+.slide.active{opacity:1;pointer-events:auto}
+.slide::before{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.4) 0%,rgba(0,0,0,.2) 35%,rgba(0,0,0,.7) 100%)}
+.progress{position:absolute;top:12px;left:10px;right:10px;display:flex;gap:4px;z-index:10}
+.progress-seg{flex:1;height:2.5px;background:rgba(255,255,255,.35);border-radius:2px;overflow:hidden}
+.progress-fill{height:100%;width:0%;background:#fff;border-radius:2px}
+.progress-seg.done .progress-fill,.progress-seg.active .progress-fill{width:100%}
+.content{position:absolute;bottom:0;left:0;right:0;padding:28px 22px 40px;z-index:5;color:#fff}
+.eyebrow{font-size:11px;letter-spacing:1.4px;text-transform:uppercase;font-weight:600;opacity:.85;margin-bottom:8px}
+h1{font-size:25px;line-height:1.15;font-weight:700;letter-spacing:-.3px;margin-bottom:10px;text-shadow:0 1px 10px rgba(0,0,0,.6)}
+p{font-size:15px;line-height:1.45;font-weight:500;opacity:.95;text-shadow:0 1px 8px rgba(0,0,0,.5)}
+.stat{font-size:42px;font-weight:800;letter-spacing:-1px;line-height:1;margin:6px 0 4px;text-shadow:0 2px 12px rgba(0,0,0,.5)}
+.stat-label{font-size:15px;opacity:.9}
+.cta-btn{display:inline-block;margin-top:16px;background:#fff;color:#111;padding:12px 22px;border-radius:999px;font-weight:700;font-size:15px;text-decoration:none}
+.tap-hint{position:absolute;bottom:16px;left:0;right:0;text-align:center;font-size:12px;opacity:.55;z-index:6;pointer-events:none}
+.zones{position:absolute;inset:0;z-index:20;display:flex}
+.zone-left{width:28%;height:100%}
+.zone-right{flex:1;height:100%}
+
+.choices{display:flex;flex-direction:column;gap:8px;margin-top:14px}
+.choice{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);color:#fff;padding:12px 14px;border-radius:10px;font-size:14px;font-weight:600;text-align:left;cursor:pointer;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.choice.selected{background:rgba(255,255,255,.92);color:#111;border-color:#fff}
+</style>
+</head>
+<body>
+<div id="story">
+  <div class="progress" id="progress"></div>
+  
+  <div class="slide active" style="background-image:url('https://hips.hearstapps.com/hmg-prod/images/lift-at-barry-s-soho-3-6477917971e93.jpg')">
+    <div class="content">
+      <div class="eyebrow">Quick pulse</div>
+      <h1>If you opened one studio’s numbers right now, what would you look at first?</h1>
+      <div class="choices" data-q="q1">
+        <button class="choice" data-value="fill">How full the rooms are</button>
+        <button class="choice" data-value="return">Who keeps coming back</button>
+        <button class="choice" data-value="outside">What members do outside class</button>
+      </div>
+    </div>
+  </div>
+  <div class="slide" style="background-image:url('https://cdn.prod.website-files.com/69497ece33c24736852ceba2/69b426e349b2f9bae08965e8_gallery-instructor-imsge-1.webp')">
+    <div class="content">
+      <div class="eyebrow">Same pulse</div>
+      <h1>Which of these would be most useful to have at a glance?</h1>
+      <div class="choices" data-q="q2">
+        <button class="choice" data-value="answers">Answers about the business for your team</button>
+        <button class="choice" data-value="plan">A plan that gets members to show up</button>
+        <button class="choice" data-value="nutrition">Nutrition support trainers can offer</button>
+      </div>
+    </div>
+  </div>
+  <div class="slide" style="background-image:url('https://i0.wp.com/thebriefreview.com/wp-content/uploads/2025/08/barrys3-Large.jpeg?ssl=1')">
+    <div class="content">
+      <div class="eyebrow">The set</div>
+      <h1>That’s the shape of it.</h1>
+      <p><strong>Studio Intelligence</strong> for owners and managers. Answers about the business at your fingertips.<br><br>
+      <strong>KYN</strong> for members. Builds their week so they actually show up.<br><br>
+      <strong>Nutrichef</strong> for trainers. Photo macro tracking and coaching that sits with the training.</p>
+      <p style="margin-top:12px">Use one, or take all three. They all sit on the Mariana Tek data you already have.</p>
+    </div>
+  </div>
+  <div class="slide" style="background-image:url('https://cdn.prod.website-files.com/6949433bade2d703c90660e8/69ea3642e3998176cf14ea3b_BARRYS_CREECH_LIFT_04_010_VS_R1_C1grain%20(1).webp')">
+    <div class="content">
+      <div class="eyebrow">KYN</div>
+      <h1>Better member experience.</h1><p>Uses each member’s preferences and your schedule to build their week. Gets them to the fifth visit so they stay.</p>
+    </div>
+  </div>
+  <div class="slide" style="background-image:url('https://cdn.prod.website-files.com/6949433bade2d703c90660e8/69df27be1b690a446420374f_liftstudio-location-exclusive.webp')">
+    <div class="content">
+      <div class="eyebrow">Nutrichef</div>
+      <h1>For trainers. Better client experience.</h1><p>Trainers and gyms set clients up on it. Photo-based macro tracking and AI nutrition coaching that lives alongside the training.</p>
+    </div>
+  </div>
+  <div class="slide" style="background-image:url('https://images.axios.com/oFVYJIAuLYQx4BJGMNN02AFJmv0=/0x937:5712x4150/1920x1080/2026/08/13/1786637867811.jpeg')">
+    <div class="content">
+      <div class="eyebrow">Industry average</div>
+      <div class="stat">62%</div><div class="stat-label">average boutique fill rate</div><p style="margin-top:12px">The typical studio leaves roughly 38% of capacity unused. Peak hours hide the off-peak gap.</p>
+    </div>
+  </div>
+  <div class="slide" style="background-image:url('https://cdn10.phillymag.com/wp-content/uploads/sites/3/2019/11/barrys-bootcamp-philadelphia-review-red-room.jpg')">
+    <div class="content">
+      <div class="eyebrow">Where most drop off</div>
+      <div class="stat">Visit 5</div><div class="stat-label">the retention threshold</div><p style="margin-top:12px">Mariana Tek’s 2026 boutique data shows retention holds above 90% after the fifth visit. Most members never get there. KYN is built to change that by planning the week that gets them to class 5.</p>
+    </div>
+  </div>
+  <div class="slide" style="background-image:url('https://cdn10.phillymag.com/wp-content/uploads/sites/3/2020/01/underground-barrys-fb2.jpg')">
+    <div class="content">
+      <div class="eyebrow">The pilot</div>
+      <h1>One studio. Free audit. 30-day pilot.</h1><p>Connect Studio Intelligence to a single location, see the gaps, then run a short pilot before any wider rollout.</p>
+    </div>
+  </div>
+  <div class="slide" style="background-image:url('https://assets.dmagstatic.com/wp-content/uploads/2018/02/Unknown-1-1.jpeg')">
+    <div class="content">
+      <div class="eyebrow">Next step</div>
+      <h1>See it on your data.</h1><a class="cta-btn" id="book" href="https://cal.com/your-link">Book the call</a>
+    </div>
+  </div>
+  <div class="zones">
+    <div class="zone-left" id="prev"></div>
+    <div class="zone-right" id="next"></div>
+  </div>
+  <div class="tap-hint" id="hint">Tap to continue</div>
+</div>
+<script>
+const slides=document.querySelectorAll('.slide');
+const total=slides.length;
+let current=0;
+const progress=document.getElementById('progress');
+const hint=document.getElementById('hint');
+for(let i=0;i<total;i++){
+  const seg=document.createElement('div');
+  seg.className='progress-seg'+(i===0?' active':'');
+  const fill=document.createElement('div');
+  fill.className='progress-fill';
+  seg.appendChild(fill);
+  progress.appendChild(seg);
+}
+const segs=progress.querySelectorAll('.progress-seg');
+function go(n){
+  if(n<0||n>=total)return;
+  slides[current].classList.remove('active');
+  segs[current].classList.remove('active');
+  if(n>current)segs[current].classList.add('done');
+  else segs[current].classList.remove('done');
+  current=n;
+  slides[current].classList.add('active');
+  segs[current].classList.add('active');
+  segs[current].classList.remove('done');
+  for(let i=current+1;i<total;i++)segs[i].classList.remove('done');
+  hint.style.display=current===total-1?'none':'block';
+}
+document.getElementById('next').addEventListener('click',()=>go(current+1));
+document.getElementById('prev').addEventListener('click',()=>go(current-1));
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();go(current+1)}
+  if(e.key==='ArrowLeft'){e.preventDefault();go(current-1)}
+});
+let startX=0;
+document.getElementById('story').addEventListener('touchstart',e=>{startX=e.touches[0].clientX},{passive:true});
+document.getElementById('story').addEventListener('touchend',e=>{
+  const dx=e.changedTouches[0].clientX-startX;
+  if(Math.abs(dx)>40){if(dx<0)go(current+1);else go(current-1)}
+});
+
+
+const answers = {};
+document.querySelectorAll('.choice').forEach(btn=>{
+  btn.addEventListener('click', e=>{
+    e.stopPropagation();
+    const group = btn.parentElement;
+    group.querySelectorAll('.choice').forEach(b=>b.classList.remove('selected'));
+    btn.classList.add('selected');
+    answers[group.dataset.q] = btn.dataset.value;
+    updateBookLink();
+  });
+});
+function updateBookLink(){
+  const base = 'https://cal.com/your-link';
+  const params = new URLSearchParams();
+  if(answers.q1) params.set('look', answers.q1);
+  if(answers.q2) params.set('useful', answers.q2);
+  const qs = params.toString();
+  document.getElementById('book').href = qs ? base + '?' + qs : base;
+}
+document.getElementById('book').addEventListener('click', e=>{
+  e.stopPropagation();
+});
+</script>
+</body>
+</html>

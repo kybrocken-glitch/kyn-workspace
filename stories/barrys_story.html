@@ -3,111 +3,191 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Barry’s × Kyn</title>
+<title>Barry’s × Fuller Classes</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-html,body{height:100%;background:#000;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",sans-serif;overflow:hidden;-webkit-tap-highlight-color:transparent}
-#story{position:relative;width:100%;height:100dvh;max-width:480px;margin:0 auto;background:#111;overflow:hidden;touch-action:manipulation}
+html,body{height:100%;background:#0a0a0b;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",sans-serif;overflow:hidden;-webkit-tap-highlight-color:transparent}
+body{display:flex;align-items:center;justify-content:center}
+#story{position:relative;width:min(480px,100vw,56.25dvh);aspect-ratio:9/16;max-height:100dvh;background:#111;overflow:hidden;border-radius:20px;touch-action:manipulation}
 .slide{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .18s ease;background-size:cover;background-position:center}
 .slide.active{opacity:1;pointer-events:auto}
-.slide::before{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.4) 0%,rgba(0,0,0,.2) 35%,rgba(0,0,0,.7) 100%)}
-.progress{position:absolute;top:12px;left:10px;right:10px;display:flex;gap:4px;z-index:10}
+.slide::before{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.45) 0%,rgba(0,0,0,.15) 35%,rgba(0,0,0,.55) 62%,rgba(0,0,0,.88) 100%)}
+.progress{position:absolute;top:12px;left:10px;right:10px;display:flex;gap:4px;z-index:40}
 .progress-seg{flex:1;height:2.5px;background:rgba(255,255,255,.35);border-radius:2px;overflow:hidden}
 .progress-fill{height:100%;width:0%;background:#fff;border-radius:2px}
 .progress-seg.done .progress-fill,.progress-seg.active .progress-fill{width:100%}
-.content{position:absolute;bottom:0;left:0;right:0;padding:28px 22px 40px;z-index:5;color:#fff}
-.eyebrow{font-size:11px;letter-spacing:1.4px;text-transform:uppercase;font-weight:600;opacity:.85;margin-bottom:8px}
-h1{font-size:25px;line-height:1.15;font-weight:700;letter-spacing:-.3px;margin-bottom:10px;text-shadow:0 1px 10px rgba(0,0,0,.6)}
+.wordmark{position:absolute;top:26px;left:16px;z-index:39;display:flex;align-items:center;gap:8px;pointer-events:none}
+.dotgrid{display:grid;grid-template-columns:repeat(3,4px);grid-template-rows:repeat(3,4px);gap:2.5px}
+.dotgrid span{width:4px;height:4px;border-radius:50%;background:#E4572E}
+.wordmark .wm-text{color:#fff;font-weight:800;font-size:15px;letter-spacing:.2px;text-shadow:0 1px 8px rgba(0,0,0,.6)}
+.content{position:absolute;bottom:0;left:0;right:0;padding:28px 22px 44px;z-index:5;color:#fff}
+.eyebrow{font-size:11px;letter-spacing:1.6px;text-transform:uppercase;font-weight:700;color:#E4572E;margin-bottom:8px}
+h1{font-size:25px;line-height:1.15;font-weight:800;letter-spacing:-.3px;margin-bottom:10px;text-shadow:0 1px 10px rgba(0,0,0,.6)}
 p{font-size:15px;line-height:1.45;font-weight:500;opacity:.95;text-shadow:0 1px 8px rgba(0,0,0,.5)}
-.stat{font-size:42px;font-weight:800;letter-spacing:-1px;line-height:1;margin:6px 0 4px;text-shadow:0 2px 12px rgba(0,0,0,.5)}
-.stat-label{font-size:15px;opacity:.9}
-.cta-btn{display:inline-block;margin-top:16px;background:#fff;color:#111;padding:12px 22px;border-radius:999px;font-weight:700;font-size:15px;text-decoration:none}
-.tap-hint{position:absolute;bottom:16px;left:0;right:0;text-align:center;font-size:12px;opacity:.55;z-index:6;pointer-events:none}
-.zones{position:absolute;inset:0;z-index:20;display:flex}
+.foot{font-size:11px;line-height:1.4;opacity:.6;margin-top:10px;text-shadow:0 1px 6px rgba(0,0,0,.5)}
+.cards{display:flex;flex-direction:column;gap:8px;margin-top:14px}
+.scard{background:rgba(10,10,12,.55);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:10px 14px;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.scard .num{font-size:28px;font-weight:800;letter-spacing:-.5px;line-height:1.05}
+.scard .lbl{font-size:12.5px;line-height:1.35;opacity:.88;margin-top:2px}
+.steps{display:flex;flex-direction:column;gap:8px;margin-top:14px}
+.step{display:flex;gap:12px;align-items:flex-start;background:rgba(10,10,12,.55);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:10px 14px;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.step .n{color:#E4572E;font-weight:800;font-size:15px;line-height:1.3}
+.step .t{font-size:14px;font-weight:700;line-height:1.3}
+.step .d{font-size:12.5px;line-height:1.35;opacity:.88;margin-top:2px}
+.cta-btn{display:inline-block;margin-top:16px;background:#E4572E;color:#fff;padding:13px 26px;border-radius:999px;font-weight:700;font-size:15px;text-decoration:none}
+.cta-domain{margin-top:10px;font-size:12px;opacity:.65}
+.tap-hint{position:absolute;bottom:16px;left:0;right:0;text-align:center;font-size:12px;color:#fff;opacity:.55;z-index:6;pointer-events:none}
+.zones{position:absolute;inset:0;z-index:2;display:flex}
 .zone-left{width:28%;height:100%}
 .zone-right{flex:1;height:100%}
-
+.chev{position:absolute;top:50%;transform:translateY(-50%);z-index:30;width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,.25);background:rgba(10,10,12,.4);color:#fff;font-size:20px;line-height:1;display:flex;align-items:center;justify-content:center;cursor:pointer;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.chev.prev{left:10px}
+.chev.next{right:10px}
 .choices{display:flex;flex-direction:column;gap:8px;margin-top:14px}
-.choice{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);color:#fff;padding:12px 14px;border-radius:10px;font-size:14px;font-weight:600;text-align:left;cursor:pointer;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.choice{background:rgba(10,10,12,.5);border:1px solid rgba(255,255,255,.3);color:#fff;padding:12px 14px;border-radius:10px;font-size:14px;font-weight:600;text-align:left;cursor:pointer;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
 .choice.selected{background:rgba(255,255,255,.92);color:#111;border-color:#fff}
 </style>
 </head>
 <body>
 <div id="story">
   <div class="progress" id="progress"></div>
-  
+  <div class="wordmark"><div class="dotgrid"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div><div class="wm-text">Fuller Classes</div></div>
+
   <div class="slide active" style="background-image:url('https://hips.hearstapps.com/hmg-prod/images/lift-at-barry-s-soho-3-6477917971e93.jpg')">
     <div class="content">
-      <div class="eyebrow">Quick pulse</div>
-      <h1>If you opened one studio’s numbers right now, what would you look at first?</h1>
-      <div class="choices" data-q="q1">
-        <button class="choice" data-value="fill">How full the rooms are</button>
-        <button class="choice" data-value="return">Who keeps coming back</button>
-        <button class="choice" data-value="outside">What members do outside class</button>
-      </div>
+      <div class="eyebrow">Barry’s x Fuller Classes</div>
+      <h1>What would fuller HIIT, strength, treadmill and floor work classes mean for Barry’s?</h1>
+      <p>We run three Pilates studios in Dallas. This is how we’d fill classes at Barry’s, in about a minute.</p>
     </div>
   </div>
+
   <div class="slide" style="background-image:url('https://cdn.prod.website-files.com/69497ece33c24736852ceba2/69b426e349b2f9bae08965e8_gallery-instructor-imsge-1.webp')">
     <div class="content">
-      <div class="eyebrow">Same pulse</div>
-      <h1>Which of these would be most useful to have at a glance?</h1>
-      <div class="choices" data-q="q2">
-        <button class="choice" data-value="answers">Answers about the business for your team</button>
-        <button class="choice" data-value="plan">A plan that gets members to show up</button>
-        <button class="choice" data-value="nutrition">Nutrition support trainers can offer</button>
+      <div class="eyebrow">Start here</div>
+      <h1>What would move the needle most at Barry’s right now?</h1>
+      <div class="choices" data-q="q1">
+        <button class="choice" data-value="fill">More new people booking a first class</button>
+        <button class="choice" data-value="return">Members coming often enough to make it a habit</button>
+        <button class="choice" data-value="return">Knowing who’s slipping before they cancel</button>
+        <button class="choice" data-value="outside">A reason for members to stay between classes</button>
       </div>
     </div>
   </div>
+
   <div class="slide" style="background-image:url('https://i0.wp.com/thebriefreview.com/wp-content/uploads/2025/08/barrys3-Large.jpeg?ssl=1')">
     <div class="content">
-      <div class="eyebrow">The set</div>
-      <h1>That’s the shape of it.</h1>
-      <p><strong>Studio Intelligence</strong> for owners and managers. Answers about the business at your fingertips.<br><br>
-      <strong>KYN</strong> for members. Builds their week so they actually show up.<br><br>
-      <strong>Nutrichef</strong> for trainers. Photo macro tracking and coaching that sits with the training.</p>
-      <p style="margin-top:12px">Use one, or take all three. They all sit on the Mariana Tek data you already have.</p>
+      <div class="eyebrow">How we see it</div>
+      <h1>Most studios don’t have a growth problem. They have a leak.</h1>
+      <p>Members rarely quit all at once. They come a little less, then a little less again, and then they are gone. This is what that drift costs.</p>
+      <div class="cards">
+        <div class="scard"><div class="num">23.3%</div><div class="lbl">cancelled when coming less than once a week</div></div>
+        <div class="scard"><div class="num">6.8%</div><div class="lbl">cancelled when coming four or more times a week</div></div>
+      </div>
+      <div class="foot">3,510 paying members at a studio in Toronto, Aug 1 to Sep 15, 2026.</div>
     </div>
   </div>
+
   <div class="slide" style="background-image:url('https://cdn.prod.website-files.com/6949433bade2d703c90660e8/69ea3642e3998176cf14ea3b_BARRYS_CREECH_LIFT_04_010_VS_R1_C1grain%20(1).webp')">
     <div class="content">
-      <div class="eyebrow">KYN</div>
-      <h1>Better member experience.</h1><p>Uses each member’s preferences and your schedule to build their week. Gets them to the fifth visit so they stay.</p>
+      <div class="eyebrow">How we fill classes</div>
+      <h1>From a stranger to a regular.</h1>
+      <div class="steps">
+        <div class="step"><div class="n">01</div><div><div class="t">They find you</div><div class="d">A website visit or an event becomes a booked intro offer.</div></div></div>
+        <div class="step"><div class="n">02</div><div><div class="t">They come back</div><div class="d">Follow-up turns one class into a second, then a membership.</div></div></div>
+        <div class="step"><div class="n">03</div><div><div class="t">It becomes a habit</div><div class="d">Their week books itself, and a coach checks in between classes.</div></div></div>
+        <div class="step"><div class="n">04</div><div><div class="t">They stay</div><div class="d">You see who’s slipping while there’s still time to call.</div></div></div>
+      </div>
     </div>
   </div>
+
   <div class="slide" style="background-image:url('https://cdn.prod.website-files.com/6949433bade2d703c90660e8/69df27be1b690a446420374f_liftstudio-location-exclusive.webp')">
     <div class="content">
-      <div class="eyebrow">Nutrichef</div>
-      <h1>For trainers. Better client experience.</h1><p>Trainers and gyms set clients up on it. Photo-based macro tracking and AI nutrition coaching that lives alongside the training.</p>
+      <div class="eyebrow">For Barry’s - Marketing</div>
+      <h1>Bring the right people in, and turn a first class into a membership.</h1>
+      <p>An audit of your website, intro offer, email and text automations, and booking setup, ranked by what fills classes first. You get a written audit plus a 30-minute walk-through.</p>
+      <div class="cards">
+        <div class="scard"><div class="num">1 to 3</div><div class="lbl">locations at Oak Cliff Pilates, grown with this work</div></div>
+      </div>
+      <div class="foot">Works with any booking system, including Mariana Tek.</div>
     </div>
   </div>
-  <div class="slide" style="background-image:url('https://images.axios.com/oFVYJIAuLYQx4BJGMNN02AFJmv0=/0x937:5712x4150/1920x1080/2026/08/13/1786637867811.jpeg')">
-    <div class="content">
-      <div class="eyebrow">Industry average</div>
-      <div class="stat">62%</div><div class="stat-label">average boutique fill rate</div><p style="margin-top:12px">The typical studio leaves roughly 38% of capacity unused. Peak hours hide the off-peak gap.</p>
-    </div>
-  </div>
+
   <div class="slide" style="background-image:url('https://cdn10.phillymag.com/wp-content/uploads/sites/3/2019/11/barrys-bootcamp-philadelphia-review-red-room.jpg')">
     <div class="content">
-      <div class="eyebrow">Where most drop off</div>
-      <div class="stat">Visit 5</div><div class="stat-label">the retention threshold</div><p style="margin-top:12px">Mariana Tek’s 2026 boutique data shows retention holds above 90% after the fifth visit. Most members never get there. KYN is built to change that by planning the week that gets them to class 5.</p>
+      <div class="eyebrow">For Barry’s - Booking</div>
+      <h1>Barry’s members set their week once. It books itself.</h1>
+      <p>The member app books their usual classes when the schedule opens, favourite spot first, and waitlists them when a class is full.</p>
+      <div class="cards">
+        <div class="scard"><div class="num">893</div><div class="lbl">classes booked in 12 minutes, one Saturday at a studio in Toronto</div></div>
+      </div>
+      <div class="foot">Runs on Mariana Tek, which Barry’s already uses.</div>
     </div>
   </div>
+
+  <div class="slide" style="background-image:url('https://images.axios.com/oFVYJIAuLYQx4BJGMNN02AFJmv0=/0x937:5712x4150/1920x1080/2026/08/13/1786637867811.jpeg')">
+    <div class="content">
+      <div class="eyebrow">For Barry’s - Retention</div>
+      <h1>Know who at Barry’s is coming less, before they cancel.</h1>
+      <p>A short note every morning: members who are slipping, classes running half empty, and which instructors bring people back. Ask follow-up questions in plain English and get answers from your own data.</p>
+      <div class="foot">Reads Barry’s’ Mariana Tek data. Read-only, free for 30 days, no card.</div>
+    </div>
+  </div>
+
   <div class="slide" style="background-image:url('https://cdn10.phillymag.com/wp-content/uploads/sites/3/2020/01/underground-barrys-fb2.jpg')">
     <div class="content">
-      <div class="eyebrow">The pilot</div>
-      <h1>One studio. Free audit. 30-day pilot.</h1><p>Connect Studio Intelligence to a single location, see the gaps, then run a short pilot before any wider rollout.</p>
+      <div class="eyebrow">For Barry’s - Nutrition</div>
+      <h1>A nutrition line Barry’s prices itself.</h1>
+      <p>Members snap what they eat. Coaches see every plate and reach out directly. No diets, no medical advice.</p>
+      <div class="cards">
+        <div class="scard"><div class="num">$199</div><div class="lbl">a month flat, unlimited members and coaches</div></div>
+      </div>
+      <div class="foot">Works with any booking system. Barry’s sets what members pay.</div>
     </div>
   </div>
+
   <div class="slide" style="background-image:url('https://assets.dmagstatic.com/wp-content/uploads/2018/02/Unknown-1-1.jpeg')">
     <div class="content">
-      <div class="eyebrow">Next step</div>
-      <h1>See it on your data.</h1><a class="cta-btn" id="book" href="https://cal.com/your-link">Book the call</a>
+      <div class="eyebrow">Tested in real studios</div>
+      <h1>What changed for studios like yours.</h1>
+      <div class="cards">
+        <div class="scard"><div class="num">32%</div><div class="lbl">of auto-booking members at a studio in Toronto moved up to 3+ classes a week</div></div>
+        <div class="scard"><div class="num">19%</div><div class="lbl">of their other members did</div></div>
+        <div class="scard"><div class="num">+400%</div><div class="lbl">revenue at Oak Cliff Pilates, Dallas, with the marketing work</div></div>
+      </div>
+      <div class="foot">A studio in Toronto: 24 of 75 vs 88 of 458, Aug to Sep 2026. Compares two groups; not a controlled test.</div>
     </div>
   </div>
+
+  <div class="slide" style="background-image:url('https://cdn.prod.website-files.com/69497ece33c24736852ceba2/69b426e349b2f9bae08965e8_gallery-instructor-imsge-1.webp')">
+    <div class="content">
+      <div class="eyebrow">One more</div>
+      <h1>If Barry’s started one thing this month, which would it be?</h1>
+      <div class="choices" data-q="q2">
+        <button class="choice" data-value="">A marketing audit</button>
+        <button class="choice" data-value="plan">Member auto-booking</button>
+        <button class="choice" data-value="answers">The morning retention note</button>
+        <button class="choice" data-value="nutrition">A coach-led nutrition line</button>
+        <button class="choice" data-value="">Not sure yet, help me choose</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide" style="background-image:url('https://hips.hearstapps.com/hmg-prod/images/lift-at-barry-s-soho-3-6477917971e93.jpg')">
+    <div class="content">
+      <div class="eyebrow">Next step</div>
+      <h1>Let’s look at Barry’s’ numbers together.</h1>
+      <p>A 30-minute call with Bahubali. Bring what you know about members, classes and churn. We’ll show you where the leak is and which tool fits first.</p>
+      <a class="cta-btn" id="book" href="https://calendly.com/studiointels/fuller-classes-intro-call">Book a call</a>
+      <div class="cta-domain">fullerclasses.com</div>
+    </div>
+  </div>
+
   <div class="zones">
     <div class="zone-left" id="prev"></div>
     <div class="zone-right" id="next"></div>
   </div>
+  <button class="chev prev" id="chevPrev" aria-label="Previous">&#8249;</button>
+  <button class="chev next" id="chevNext" aria-label="Next">&#8250;</button>
   <div class="tap-hint" id="hint">Tap to continue</div>
 </div>
 <script>
@@ -140,6 +220,8 @@ function go(n){
 }
 document.getElementById('next').addEventListener('click',()=>go(current+1));
 document.getElementById('prev').addEventListener('click',()=>go(current-1));
+document.getElementById('chevNext').addEventListener('click',e=>{e.stopPropagation();go(current+1)});
+document.getElementById('chevPrev').addEventListener('click',e=>{e.stopPropagation();go(current-1)});
 document.addEventListener('keydown',e=>{
   if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();go(current+1)}
   if(e.key==='ArrowLeft'){e.preventDefault();go(current-1)}
@@ -151,7 +233,15 @@ document.getElementById('story').addEventListener('touchend',e=>{
   if(Math.abs(dx)>40){if(dx<0)go(current+1);else go(current-1)}
 });
 
-
+const STORY_TOKEN = 'https://fullerclasses.com/s-la3toj';
+const PING_URL = 'https://services.leadconnectorhq.com/hooks/FIEBupc64bcKVn0TkV72/webhook-trigger/17c75666-24ca-427f-ae76-f537dadb9ee3';
+function pingAnswer(q, a){
+  try {
+    const body = JSON.stringify({token: STORY_TOKEN, q: q, a: a});
+    if (navigator.sendBeacon) { navigator.sendBeacon(PING_URL, new Blob([body], {type:'text/plain'})); }
+    else { fetch(PING_URL, {method:'POST', body: body, headers:{'Content-Type':'text/plain'}, mode:'no-cors', keepalive:true}); }
+  } catch(e){}
+}
 const answers = {};
 document.querySelectorAll('.choice').forEach(btn=>{
   btn.addEventListener('click', e=>{
@@ -159,12 +249,18 @@ document.querySelectorAll('.choice').forEach(btn=>{
     const group = btn.parentElement;
     group.querySelectorAll('.choice').forEach(b=>b.classList.remove('selected'));
     btn.classList.add('selected');
-    answers[group.dataset.q] = btn.dataset.value;
-    updateBookLink();
+    const q = group.dataset.q;
+    const a = btn.dataset.value;
+    if (a) {
+      answers[q] = a;
+      pingAnswer(q, a);
+      updateBookLink();
+    }
+    setTimeout(()=>go(current+1), 280);
   });
 });
 function updateBookLink(){
-  const base = 'https://cal.com/your-link';
+  const base = 'https://calendly.com/studiointels/fuller-classes-intro-call';
   const params = new URLSearchParams();
   if(answers.q1) params.set('look', answers.q1);
   if(answers.q2) params.set('useful', answers.q2);

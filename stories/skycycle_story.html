@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>SkyCycle × Fuller Classes</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;background:#0a0a0b;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",sans-serif;overflow:hidden;-webkit-tap-highlight-color:transparent}
+body{display:flex;align-items:center;justify-content:center}
+#story{position:relative;width:min(480px,100vw,56.25dvh);aspect-ratio:9/16;max-height:100dvh;background:#111;overflow:hidden;border-radius:20px;touch-action:manipulation}
+.slide{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .18s ease;background-size:cover;background-position:center}
+.slide.active{opacity:1;pointer-events:auto}
+.slide::before{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.45) 0%,rgba(0,0,0,.15) 35%,rgba(0,0,0,.55) 62%,rgba(0,0,0,.88) 100%)}
+.progress{position:absolute;top:12px;left:10px;right:10px;display:flex;gap:4px;z-index:40}
+.progress-seg{flex:1;height:2.5px;background:rgba(255,255,255,.35);border-radius:2px;overflow:hidden}
+.progress-fill{height:100%;width:0%;background:#fff;border-radius:2px}
+.progress-seg.done .progress-fill,.progress-seg.active .progress-fill{width:100%}
+.wordmark{position:absolute;top:26px;left:16px;z-index:39;display:flex;align-items:center;gap:8px;pointer-events:none}
+.dotgrid{display:grid;grid-template-columns:repeat(3,4px);grid-template-rows:repeat(3,4px);gap:2.5px}
+.dotgrid span{width:4px;height:4px;border-radius:50%;background:#E4572E}
+.wordmark .wm-text{color:#fff;font-weight:800;font-size:15px;letter-spacing:.2px;text-shadow:0 1px 8px rgba(0,0,0,.6)}
+.content{position:absolute;bottom:0;left:0;right:0;padding:28px 22px 44px;z-index:5;color:#fff}
+.eyebrow{font-size:11px;letter-spacing:1.6px;text-transform:uppercase;font-weight:700;color:#E4572E;margin-bottom:8px}
+h1{font-size:25px;line-height:1.15;font-weight:800;letter-spacing:-.3px;margin-bottom:10px;text-shadow:0 1px 10px rgba(0,0,0,.6)}
+p{font-size:15px;line-height:1.45;font-weight:500;opacity:.95;text-shadow:0 1px 8px rgba(0,0,0,.5)}
+.foot{font-size:11px;line-height:1.4;opacity:.6;margin-top:10px;text-shadow:0 1px 6px rgba(0,0,0,.5)}
+.cards{display:flex;flex-direction:column;gap:8px;margin-top:14px}
+.scard{background:rgba(10,10,12,.55);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:10px 14px;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.scard .num{font-size:28px;font-weight:800;letter-spacing:-.5px;line-height:1.05}
+.scard .lbl{font-size:12.5px;line-height:1.35;opacity:.88;margin-top:2px}
+.steps{display:flex;flex-direction:column;gap:8px;margin-top:14px}
+.step{display:flex;gap:12px;align-items:flex-start;background:rgba(10,10,12,.55);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:10px 14px;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.step .n{color:#E4572E;font-weight:800;font-size:15px;line-height:1.3}
+.step .t{font-size:14px;font-weight:700;line-height:1.3}
+.step .d{font-size:12.5px;line-height:1.35;opacity:.88;margin-top:2px}
+.cta-btn{display:inline-block;margin-top:16px;background:#E4572E;color:#fff;padding:13px 26px;border-radius:999px;font-weight:700;font-size:15px;text-decoration:none}
+.cta-domain{margin-top:10px;font-size:12px;opacity:.65}
+.tap-hint{position:absolute;bottom:16px;left:0;right:0;text-align:center;font-size:12px;color:#fff;opacity:.55;z-index:6;pointer-events:none}
+.zones{position:absolute;inset:0;z-index:2;display:flex}
+.zone-left{width:28%;height:100%}
+.zone-right{flex:1;height:100%}
+.chev{position:absolute;top:50%;transform:translateY(-50%);z-index:30;width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,.25);background:rgba(10,10,12,.4);color:#fff;font-size:20px;line-height:1;display:flex;align-items:center;justify-content:center;cursor:pointer;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.chev.prev{left:10px}
+.chev.next{right:10px}
+.choices{display:flex;flex-direction:column;gap:8px;margin-top:14px}
+.choice{background:rgba(10,10,12,.5);border:1px solid rgba(255,255,255,.3);color:#fff;padding:12px 14px;border-radius:10px;font-size:14px;font-weight:600;text-align:left;cursor:pointer;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.choice.selected{background:rgba(255,255,255,.92);color:#111;border-color:#fff}
+</style>
+</head>
+<body>
+<div id="story">
+  <div class="progress" id="progress"></div>
+  <div class="wordmark"><div class="dotgrid"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div><div class="wm-text">Fuller Classes</div></div>
+
+  <div class="slide active" style="background-image:url('https://static.wixstatic.com/media/d4de03_d0f62d8ed138456fb0723f0d6e6fb3ea~mv2.jpg')">
+    <div class="content">
+      <div class="eyebrow">SkyCycle x Fuller Classes</div>
+      <h1>What would fuller rooftop cycling classes mean for SkyCycle?</h1>
+      <p>We run three Pilates studios in Dallas. This is how we’d fill classes at SkyCycle, in about a minute.</p>
+    </div>
+  </div>
+
+  <div class="slide" style="background-image:url('https://static.wixstatic.com/media/d4de03_1b99f47f824c483a88762db81dc6ca87~mv2.jpg')">
+    <div class="content">
+      <div class="eyebrow">Start here</div>
+      <h1>What would move the needle most at SkyCycle right now?</h1>
+      <div class="choices" data-q="q1">
+        <button class="choice" data-value="fill">More new people booking a first class</button>
+        <button class="choice" data-value="return">Members coming often enough to make it a habit</button>
+        <button class="choice" data-value="return">Knowing who’s slipping before they cancel</button>
+        <button class="choice" data-value="outside">A reason for members to stay between classes</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide" style="background-image:url('https://static.wixstatic.com/media/d4de03_7214a0a765d14ed0b253b613a1fed9ef~mv2.jpg')">
+    <div class="content">
+      <div class="eyebrow">How we see it</div>
+      <h1>Most studios don’t have a growth problem. They have a leak.</h1>
+      <p>Members rarely quit all at once. They come a little less, then a little less again, and then they are gone. This is what that drift costs.</p>
+      <div class="cards">
+        <div class="scard"><div class="num">23.3%</div><div class="lbl">cancelled when coming less than once a week</div></div>
+        <div class="scard"><div class="num">6.8%</div><div class="lbl">cancelled when coming four or more times a week</div></div>
+      </div>
+      <div class="foot">3,510 paying members at a studio in Toronto, Aug 1 to Sep 15, 2026.</div>
+    </div>
+  </div>
+
+  <div class="slide" style="background-image:url('https://static.wixstatic.com/media/d4de03_66b7306d62e54a0cb2722fd69868ad05~mv2.jpg')">
+    <div class="content">
+      <div class="eyebrow">How we fill classes</div>
+      <h1>From a stranger to a regular.</h1>
+      <div class="steps">
+        <div class="step"><div class="n">01</div><div><div class="t">They find you</div><div class="d">A website visit or an event becomes a booked intro offer.</div></div></div>
+        <div class="step"><div class="n">02</div><div><div class="t">They come back</div><div class="d">Follow-up turns one class into a second, then a membership.</div></div></div>
+        <div class="step"><div class="n">03</div><div><div class="t">It becomes a habit</div><div class="d">Their week books itself, and a coach checks in between classes.</div></div></div>
+        <div class="step"><div class="n">04</div><div><div class="t">They stay</div><div class="d">You see who’s slipping while there’s still time to call.</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide" style="background-image:url('https://static.wixstatic.com/media/b3fece_d9ca50f2950f4773b880905e601690b2~mv2.jpg')">
+    <div class="content">
+      <div class="eyebrow">For SkyCycle - Marketing</div>
+      <h1>Bring the right people in, and turn a first class into a membership.</h1>
+      <p>An audit of your website, intro offer, email and text automations, and booking setup, ranked by what fills classes first. You get a written audit plus a 30-minute walk-through.</p>
+      <div class="cards">
+        <div class="scard"><div class="num">1 to 3</div><div class="lbl">locations at Oak Cliff Pilates, grown with this work</div></div>
+      </div>
+      <div class="foot">Works with any booking system, including Mariana Tek.</div>
+    </div>
+  </div>
+
+  <div class="slide" style="background-image:url('https://static.wixstatic.com/media/d4de03_b9bd3416b8b347b3875e800982ef3d8a~mv2.jpg')">
+    <div class="content">
+      <div class="eyebrow">For SkyCycle - Booking</div>
+      <h1>SkyCycle’s members set their week once. It books itself.</h1>
+      <p>The member app books their usual classes when the schedule opens, favourite spot first, and waitlists them when a class is full.</p>
+      <div class="cards">
+        <div class="scard"><div class="num">893</div><div class="lbl">classes booked in 12 minutes, one Saturday at a studio in Toronto</div></div>
+      </div>
+      <div class="foot">Runs on Mariana Tek, which SkyCycle already uses.</div>
+    </div>
+  </div>
+
+  <div class="slide" style="background-image:url('https://static.wixstatic.com/media/d4de03_710c2ce5cd874f25b378ee7319e38329~mv2.jpg')">
+    <div class="content">
+      <div class="eyebrow">For SkyCycle - Retention</div>
+      <h1>Know who at SkyCycle is coming less, before they cancel.</h1>
+      <p>A short note every morning: members who are slipping, classes running half empty, and which instructors bring people back. Ask follow-up questions in plain English and get answers from your own data.</p>
+      <div class="foot">Reads SkyCycle’s Mariana Tek data. Read-only, free for 30 days, no card.</div>
+    </div>
+  </div>
+
+  <div class="slide" style="background-image:url('https://static.wixstatic.com/media/d4de03_ae8a773ba0a34a958163347034f72451~mv2.jpg')">
+    <div class="content">
+      <div class="eyebrow">For SkyCycle - Nutrition</div>
+      <h1>A nutrition line SkyCycle prices itself.</h1>
+      <p>Members snap what they eat. Coaches see every plate and reach out directly. No diets, no medical advice.</p>
+      <div class="cards">
+        <div class="scard"><div class="num">$199</div><div class="lbl">a month flat, unlimited members and coaches</div></div>
+      </div>
+      <div class="foot">Works with any booking system. SkyCycle sets what members pay.</div>
+    </div>
+  </div>
+
+  <div class="slide" style="background-image:url('https://static.wixstatic.com/media/d4de03_964904377c5146ff9f614fabd7bea723~mv2.jpg')">
+    <div class="content">
+      <div class="eyebrow">Tested in real studios</div>
+      <h1>What changed for studios like yours.</h1>
+      <div class="cards">
+        <div class="scard"><div class="num">32%</div><div class="lbl">of auto-booking members at a studio in Toronto moved up to 3+ classes a week</div></div>
+        <div class="scard"><div class="num">19%</div><div class="lbl">of their other members did</div></div>
+        <div class="scard"><div class="num">+400%</div><div class="lbl">revenue at Oak Cliff Pilates, Dallas, with the marketing work</div></div>
+      </div>
+      <div class="foot">A studio in Toronto: 24 of 75 vs 88 of 458, Aug to Sep 2026. Compares two groups; not a controlled test.</div>
+    </div>
+  </div>
+
+  <div class="slide" style="background-image:url('https://static.wixstatic.com/media/d4de03_1b99f47f824c483a88762db81dc6ca87~mv2.jpg')">
+    <div class="content">
+      <div class="eyebrow">One more</div>
+      <h1>If SkyCycle started one thing this month, which would it be?</h1>
+      <div class="choices" data-q="q2">
+        <button class="choice" data-value="">A marketing audit</button>
+        <button class="choice" data-value="plan">Member auto-booking</button>
+        <button class="choice" data-value="answers">The morning retention note</button>
+        <button class="choice" data-value="nutrition">A coach-led nutrition line</button>
+        <button class="choice" data-value="">Not sure yet, help me choose</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide" style="background-image:url('https://static.wixstatic.com/media/d4de03_d0f62d8ed138456fb0723f0d6e6fb3ea~mv2.jpg')">
+    <div class="content">
+      <div class="eyebrow">Next step</div>
+      <h1>Let’s look at SkyCycle’s numbers together.</h1>
+      <p>A 30-minute call with Bahubali. Bring what you know about members, classes and churn. We’ll show you where the leak is and which tool fits first.</p>
+      <a class="cta-btn" id="book" href="https://calendly.com/studiointels/fuller-classes-intro-call">Book a call</a>
+      <div class="cta-domain">fullerclasses.com</div>
+    </div>
+  </div>
+
+  <div class="zones">
+    <div class="zone-left" id="prev"></div>
+    <div class="zone-right" id="next"></div>
+  </div>
+  <button class="chev prev" id="chevPrev" aria-label="Previous">&#8249;</button>
+  <button class="chev next" id="chevNext" aria-label="Next">&#8250;</button>
+  <div class="tap-hint" id="hint">Tap to continue</div>
+</div>
+<script>
+const slides=document.querySelectorAll('.slide');
+const total=slides.length;
+let current=0;
+const progress=document.getElementById('progress');
+const hint=document.getElementById('hint');
+for(let i=0;i<total;i++){
+  const seg=document.createElement('div');
+  seg.className='progress-seg'+(i===0?' active':'');
+  const fill=document.createElement('div');
+  fill.className='progress-fill';
+  seg.appendChild(fill);
+  progress.appendChild(seg);
+}
+const segs=progress.querySelectorAll('.progress-seg');
+function go(n){
+  if(n<0||n>=total)return;
+  slides[current].classList.remove('active');
+  segs[current].classList.remove('active');
+  if(n>current)segs[current].classList.add('done');
+  else segs[current].classList.remove('done');
+  current=n;
+  slides[current].classList.add('active');
+  segs[current].classList.add('active');
+  segs[current].classList.remove('done');
+  for(let i=current+1;i<total;i++)segs[i].classList.remove('done');
+  hint.style.display=current===total-1?'none':'block';
+}
+document.getElementById('next').addEventListener('click',()=>go(current+1));
+document.getElementById('prev').addEventListener('click',()=>go(current-1));
+document.getElementById('chevNext').addEventListener('click',e=>{e.stopPropagation();go(current+1)});
+document.getElementById('chevPrev').addEventListener('click',e=>{e.stopPropagation();go(current-1)});
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();go(current+1)}
+  if(e.key==='ArrowLeft'){e.preventDefault();go(current-1)}
+});
+let startX=0;
+document.getElementById('story').addEventListener('touchstart',e=>{startX=e.touches[0].clientX},{passive:true});
+document.getElementById('story').addEventListener('touchend',e=>{
+  const dx=e.changedTouches[0].clientX-startX;
+  if(Math.abs(dx)>40){if(dx<0)go(current+1);else go(current-1)}
+});
+
+const STORY_TOKEN = 'https://fullerclasses.com/s-k21pea';
+const PING_URL = 'https://services.leadconnectorhq.com/hooks/FIEBupc64bcKVn0TkV72/webhook-trigger/17c75666-24ca-427f-ae76-f537dadb9ee3';
+function pingAnswer(q, a){
+  try {
+    const body = JSON.stringify({token: STORY_TOKEN, q: q, a: a});
+    if (navigator.sendBeacon) { navigator.sendBeacon(PING_URL, new Blob([body], {type:'text/plain'})); }
+    else { fetch(PING_URL, {method:'POST', body: body, headers:{'Content-Type':'text/plain'}, mode:'no-cors', keepalive:true}); }
+  } catch(e){}
+}
+const answers = {};
+document.querySelectorAll('.choice').forEach(btn=>{
+  btn.addEventListener('click', e=>{
+    e.stopPropagation();
+    const group = btn.parentElement;
+    group.querySelectorAll('.choice').forEach(b=>b.classList.remove('selected'));
+    btn.classList.add('selected');
+    const q = group.dataset.q;
+    const a = btn.dataset.value;
+    if (a) {
+      answers[q] = a;
+      pingAnswer(q, a);
+      updateBookLink();
+    }
+    setTimeout(()=>go(current+1), 280);
+  });
+});
+function updateBookLink(){
+  const base = 'https://calendly.com/studiointels/fuller-classes-intro-call';
+  const params = new URLSearchParams();
+  if(answers.q1) params.set('look', answers.q1);
+  if(answers.q2) params.set('useful', answers.q2);
+  const qs = params.toString();
+  document.getElementById('book').href = qs ? base + '?' + qs : base;
+}
+document.getElementById('book').addEventListener('click', e=>{
+  e.stopPropagation();
+});
+</script>
+</body>
+</html>
